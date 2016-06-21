@@ -1,2 +1,2 @@
-# OOPExamTasks
-OOP Exam tasks
+# OOP Exam Tasks
+Contribute your solutions here.
