@@ -10,7 +10,7 @@ namespace OOPExam
         {
             //TestStack();
 
-            //TestArray();
+            TestArray();
 
 
 

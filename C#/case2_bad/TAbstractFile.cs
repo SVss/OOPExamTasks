@@ -6,7 +6,7 @@ namespace OOPexam
 {
     abstract class TAbstractFile
     {
-        public abstract string fileName { get; set; }
+        public string fileName { get; set; }
         public abstract void Write(char elem);
         public abstract char Read();
         public abstract void Copy(TAbstractFile file1, TAbstractFile file2);
@@ -15,8 +15,6 @@ namespace OOPexam
     class TMemoryFile :TAbstractFile
     {
         MemoryMappedFile file;
-
-        public override string fileName { get; set; }
 
         public TMemoryFile(string fileName)
         {
@@ -33,7 +31,6 @@ namespace OOPexam
     class TOSFile: TAbstractFile
     {
         private FileInfo file;
-        public override string fileName { get; set; }
         public TOSFile(string fileName)
         {
             file = new FileInfo(fileName);
