@@ -32,18 +32,16 @@ public class Main {
 
     private static void testBitArray(){
         TBitArray bitArray = new TBitArray();
-        bitArray.setElement(5, true);
-        bitArray.setElement(0, true);
-        bitArray.setElement(100, true);
+        bitArray.setElement(1, true);
+        bitArray.setElement(2, true);
+//        bitArray.setElement(3, true);
 
-        System.out.println(bitArray.getElement(100));
-        System.out.println(bitArray.getElement(99));
-        System.out.println(bitArray.getElement(5));
-        System.out.println(bitArray.getElement(0));
+        System.out.println(bitArray.getElement(1));
+        System.out.println(bitArray.getElement(2));
+        System.out.println(bitArray.getElement(3));
 
-        bitArray.setElement(100, false);
-
-        System.out.println(bitArray.getElement(100));
+//        bitArray.setElement(3, false);
+//        System.out.println(bitArray.getElement(3));
     }
 
     public static void main(String[] args) {

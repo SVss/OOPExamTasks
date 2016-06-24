@@ -4,10 +4,27 @@ public class TBitArray {
     private int[] array;
     private final static int BITS_IN_ELEMENT = 8 * 4;
 
-    private int containerIndex, bitNumber, container;
+    private class TBitLocation {
+        private int containerIndex;
+        private int bitIndex;
+
+        TBitLocation(int containerIndex, int bitIndex) {
+            this.containerIndex = containerIndex;
+            this.bitIndex = bitIndex;
+        }
+    }
+
+    private enum TAccessType{
+        AT_READ,
+        AT_WRITE
+    }
+
 
     private static int getContainerIndex(int bitIndex) {
         int fullBytes = bitIndex / BITS_IN_ELEMENT;
+        if (fullBytes == 0){
+            return fullBytes;
+        }
         return bitIndex % BITS_IN_ELEMENT == 0 ? fullBytes : fullBytes + 1;
     }
 
@@ -19,28 +36,47 @@ public class TBitArray {
         return getReservedSize() * BITS_IN_ELEMENT;
     }
 
-    private void accessElement(int index) {
+    private TBitLocation readElement(int index){
+        return accessElement(index, TAccessType.AT_READ);
+    }
+
+    private TBitLocation writeElement(int index){
+        return accessElement(index, TAccessType.AT_WRITE);
+    }
+
+    private TBitLocation accessElement(int index, TAccessType accessType) {
         if (index < 0) {
             throw new IndexOutOfBoundsException("Invalid index");
         }
 
-        this.containerIndex = getContainerIndex(index);
-        this.bitNumber = index % BITS_IN_ELEMENT;
-        this.container = array[containerIndex];
+        TBitLocation bitLocation = new TBitLocation(getContainerIndex(index), index % BITS_IN_ELEMENT);
 
         if (index >= getReservedElements()) {
-            expand(containerIndex * 2);
+            if (accessType == TAccessType.AT_READ){
+                return null;
+            }
+            expand((bitLocation.containerIndex + 1)* 2);
         }
+
+        return bitLocation;
     }
 
     public void setElement(int index, boolean value) {
-        accessElement(index);
-        array[containerIndex] = value ? setBit(container, bitNumber) : unsetBit(container, bitNumber);
+        TBitLocation bitLocation = writeElement(index);
+        if (value){
+            array[bitLocation.containerIndex] = setBit(array[bitLocation.containerIndex], bitLocation.bitIndex);
+        } else {
+            array[bitLocation.containerIndex] = unsetBit(array[bitLocation.containerIndex], bitLocation.bitIndex);
+        }
     }
 
     public boolean getElement(int index) {
-        accessElement(index);
-        return getBit(array[containerIndex], bitNumber);
+        TBitLocation bitLocation = readElement(index);
+        if (bitLocation != null){
+            return getBit(array[bitLocation.containerIndex], bitLocation.bitIndex);
+        } else {
+            return false;
+        }
     }
 
     private int setBit(int container, int index) {
