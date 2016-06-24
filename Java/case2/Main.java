@@ -1,4 +1,5 @@
 import structures.TBitArray;
+import structures.TCircularBuffer;
 import structures.TList;
 
 public class Main {
@@ -44,7 +45,25 @@ public class Main {
 //        System.out.println(bitArray.getElement(3));
     }
 
+    private static void testCircularBuffer(){
+        TCircularBuffer buffer = new TCircularBuffer(5);
+        for (byte i = 0; i < 5; i++){
+            buffer.write(i);
+        }
+        buffer.read();
+        buffer.write((byte)5);
+        buffer.increaseSize(1);
+        buffer.write((byte)6);
+
+
+
+
+        while(!buffer.isEmpty()){
+            System.out.println("r: " + buffer.getReadPosition() + ", " + buffer.read());
+        }
+    }
+
     public static void main(String[] args) {
-        testBitArray();
+        testCircularBuffer();
     }
 }
