@@ -1,6 +1,6 @@
-import structures.TBitArray;
-import structures.TCircularBuffer;
-import structures.TList;
+import com.sun.javafx.scene.control.TableColumnSortTypeWrapper;
+import org.omg.CORBA.INTERNAL;
+import structures.*;
 
 public class Main {
     private static void printList(TList<Integer> list) {
@@ -63,7 +63,31 @@ public class Main {
         }
     }
 
+    private static void testStack(){
+        TStack<Integer> stack = new TStack<>();
+        for (int i = 0; i < 5; i++){
+            stack.push(i);
+        }
+
+        for (int i = 0; i < 5; i++){
+            System.out.println(stack.pop());
+        }
+    }
+
+    private static void testProcessorStack(){
+        TProcessorStack processorStack = new TProcessorStack();
+        processorStack.push(new byte[]{1, 2, 3});
+        processorStack.newFrame();
+        processorStack.push(new byte[]{1, 2, 3, 4});
+
+        for (byte b: processorStack.pop(7)){
+            System.out.println(b + ", ");
+        }
+        System.out.println(processorStack.getCurrentFrameStartIndex());
+
+    }
+
     public static void main(String[] args) {
-        testCircularBuffer();
+        testProcessorStack();
     }
 }

@@ -84,7 +84,7 @@ public class TCircularBuffer {
             moveReadPosition();
             return result;
         } else {
-            throw new EmptyBufferException();
+            throw new EmptyCollectionException();
         }
     }
 
