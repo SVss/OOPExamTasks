@@ -1,3 +1,4 @@
+import structures.TBitArray;
 import structures.TList;
 
 public class Main {
@@ -29,7 +30,23 @@ public class Main {
         printList(newList);
     }
 
+    private static void testBitArray(){
+        TBitArray bitArray = new TBitArray();
+        bitArray.setElement(5, true);
+        bitArray.setElement(0, true);
+        bitArray.setElement(100, true);
+
+        System.out.println(bitArray.getElement(100));
+        System.out.println(bitArray.getElement(99));
+        System.out.println(bitArray.getElement(5));
+        System.out.println(bitArray.getElement(0));
+
+        bitArray.setElement(100, false);
+
+        System.out.println(bitArray.getElement(100));
+    }
+
     public static void main(String[] args) {
-        testList();
+        testBitArray();
     }
 }
