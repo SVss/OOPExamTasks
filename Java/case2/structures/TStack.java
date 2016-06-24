@@ -1,5 +1,7 @@
 package structures;
 
+import java.util.EmptyStackException;
+
 public class TStack<T> {
     private class TStackElement {
         T value;
@@ -33,7 +35,7 @@ public class TStack<T> {
         if (!isEmpty()) {
             return head.value;
         } else {
-            throw new EmptyCollectionException();
+            throw new EmptyStackException();
         }
     }
 

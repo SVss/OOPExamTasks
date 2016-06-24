@@ -1,6 +1,7 @@
 package structures;
 
 import java.nio.BufferOverflowException;
+import java.nio.BufferUnderflowException;
 
 public class TCircularBuffer {
     private byte[] buffer;
@@ -84,7 +85,7 @@ public class TCircularBuffer {
             moveReadPosition();
             return result;
         } else {
-            throw new EmptyCollectionException();
+            throw new BufferUnderflowException();
         }
     }
 

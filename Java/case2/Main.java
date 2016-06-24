@@ -107,7 +107,39 @@ public class Main {
         }
     }
 
+    private static void testMatrix(){
+        TMatrix m1 = new TMatrix(2, 3);
+        TMatrix m2 = new TMatrix(3, 4);
+
+        m1.setElement(0, 0, 1);
+        m1.setElement(0, 1, 3);
+        m1.setElement(0, 2, 2);
+
+        m1.setElement(1, 0, 0);
+        m1.setElement(1, 1, 4);
+        m1.setElement(1, 2, -1);
+
+        m2.setElement(0, 0, 2);
+        m2.setElement(0, 1, 0);
+        m2.setElement(0, 2, -1);
+        m2.setElement(0, 3, 1);
+
+        m2.setElement(1, 0, 3);
+        m2.setElement(1, 1, -2);
+        m2.setElement(1, 2, 1);
+        m2.setElement(1, 3, 2);
+
+        m2.setElement(2, 0, 0);
+        m2.setElement(2, 1, 1);
+        m2.setElement(2, 2, 2);
+        m2.setElement(2, 3, 3);
+
+        m1.multiply(m2);
+        m1.transpose();
+        System.out.println("");
+    }
+
     public static void main(String[] args) {
-        testArray();
+        testMatrix();
     }
 }
