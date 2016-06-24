@@ -25,6 +25,7 @@ public class TBitArray {
         if (fullBytes == 0){
             return fullBytes;
         }
+        
         return bitIndex % BITS_IN_ELEMENT == 0 ? fullBytes : fullBytes + 1;
     }
 

@@ -2,6 +2,8 @@ import com.sun.javafx.scene.control.TableColumnSortTypeWrapper;
 import org.omg.CORBA.INTERNAL;
 import structures.*;
 
+import java.util.Comparator;
+
 public class Main {
     private static void printList(TList<Integer> list) {
         for (int i = 0; i < list.getSize(); i++) {
@@ -87,7 +89,25 @@ public class Main {
 
     }
 
+    private static void testArray(){
+        TArray<Integer> a = new TArray<>(5);
+        TArray<Integer> b = new TArray<>(1);
+
+        for (int i = 0; i < 5; i++){
+            a.add(i);
+        }
+        a.add(-1, 0);
+        a.removeAt(2);
+        b.add(10);
+        b.add(-20);
+        a.copyTo(b, 1);
+        b.sort((o1, o2) -> o1 - o2);
+        for (int i = 0; i < b.getSize(); i++){
+            System.out.println(b.get(i));
+        }
+    }
+
     public static void main(String[] args) {
-        testProcessorStack();
+        testArray();
     }
 }
