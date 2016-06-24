@@ -4,11 +4,12 @@ import java.util.Comparator;
 
 public class TArray<T> {
     private Object[] array;
-    private int used;
+    private int used = 0;
+
+    public TArray(){}
 
     public TArray(int size){
         array = new Object[size];
-        used = 0;
     }
 
     public int getSize(){
@@ -39,7 +40,8 @@ public class TArray<T> {
     }
 
     private void expand(){
-        Object[] newArray = new Object[getSize() * 2];
+        int size = getSize();
+        Object[] newArray = new Object[(size == 0 ? 1 : size) * 2];
         System.arraycopy(array, 0, newArray, 0, getSize());
         array = newArray;
     }

@@ -12,10 +12,8 @@ public class TList<T> {
     }
 
     private TListItem head;
-    private int size;
 
     public TList() {
-        size = 0;
         head = null;
     }
 
@@ -33,11 +31,19 @@ public class TList<T> {
     }
 
     public int getSize() {
+        int size = 0;
+        TListItem current = head;
+
+        while (current != null){
+            current = current.next;
+            size++;
+        }
+
         return size;
     }
 
     public void add(T element) {
-        add(size, element);
+        add(getSize(), element);
     }
 
     public void add(int index, T element) {
@@ -51,8 +57,6 @@ public class TList<T> {
             newItem.next = previousItem.next;
             previousItem.next = newItem;
         }
-
-        size++;
     }
 
     public T get(int index) {
@@ -60,7 +64,7 @@ public class TList<T> {
     }
 
     public void remove(int index) {
-        if (!checkIndex(index)){
+        if (!checkIndex(index)) {
             throw new IndexOutOfBoundsException("Invalid index");
         }
 
@@ -71,8 +75,6 @@ public class TList<T> {
             TListItem current = previous.next;
             previous.next = current.next;
         }
-
-        size--;
     }
 
     public void setElementAt(int index, T element) {
@@ -81,7 +83,6 @@ public class TList<T> {
 
     public void clear() {
         head = null;
-        size = 0;
     }
 
     public void moveTo(TList<T> outList) {
@@ -89,13 +90,14 @@ public class TList<T> {
     }
 
     public void moveTo(int index, TList<T> outList) {
-        for (int i = 0; i < getSize(); i++) {
-            outList.add(index + i, get(i));
-        }
+        TListItem insertPoint = outList.getReferenceAt(index - 1);
+        TListItem nextElement = insertPoint.next;
+        insertPoint.next = this.head;
+        getReferenceAt(getSize() - 1).next = nextElement;
         clear();
     }
 
     private boolean checkIndex(int index) {
-        return index >= 0 && index < size;
+        return index >= 0 && index < getSize();
     }
 }

@@ -18,19 +18,15 @@ public class Main {
         for (int i = 1; i < 10; i++) {
             list.add(i);
         }
-        printList(list);
-        list.remove(0);
-        printList(list);
-        list.remove(list.getSize());
-        printList(list);
-        list.setElementAt(0, 100);
-        printList(list);
-
         TList<Integer> newList = new TList<>();
         newList.add(1);
         newList.add(2);
-        list.moveTo(newList);
+
+        newList.moveTo(list);
+
         printList(newList);
+        printList(list);
+
     }
 
     private static void testBitArray(){
@@ -140,6 +136,6 @@ public class Main {
     }
 
     public static void main(String[] args) {
-        testMatrix();
+        testList();
     }
 }
