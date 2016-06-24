@@ -9,6 +9,7 @@ public class TCircularBuffer {
 
     public TCircularBuffer(int size) {
         readPosition = 0;
+        writePosition = 0;
         buffer = new byte[size];
         unreadDataSize = 0;
     }
@@ -21,12 +22,20 @@ public class TCircularBuffer {
         return readPosition;
     }
 
-    private void incReadPosition() {
-        readPosition = (++readPosition) % getBufferSize();
+    private void setReadPosition(int readPosition) {
+        this.readPosition = readPosition;
     }
 
-    private void incWritePosition() {
-        writePosition = (++writePosition) % getBufferSize();
+    private void setWritePosition(int writePosition) {
+        this.writePosition = writePosition;
+    }
+
+    private void moveReadPosition() {
+        setReadPosition((++readPosition) % getBufferSize());
+    }
+
+    private void moveWritePosition() {
+        setWritePosition((++writePosition) % getBufferSize());
     }
 
     public int getWritePosition() {
@@ -39,15 +48,19 @@ public class TCircularBuffer {
         for (int i = 0; i < unreadDataSize; i++) {
             newBuffer[i] = read();
         }
-        readPosition = 0;
-        writePosition = unreadDataSize;
-        this.unreadDataSize = unreadDataSize;
-
         buffer = newBuffer;
+        setReadPosition(0);
+        setWritePosition(unreadDataSize);
+        setUnreadDataSize(unreadDataSize);
+
     }
 
     public int getUnreadDataSize() {
         return unreadDataSize;
+    }
+
+    private void setUnreadDataSize(int unreadDataSize) {
+        this.unreadDataSize = unreadDataSize;
     }
 
     public boolean isEmpty(){
@@ -58,7 +71,7 @@ public class TCircularBuffer {
         if (unreadDataSize < getBufferSize()) {
             buffer[writePosition] = b;
             unreadDataSize++;
-            incWritePosition();
+            moveWritePosition();
         } else {
             throw new BufferOverflowException();
         }
@@ -68,7 +81,7 @@ public class TCircularBuffer {
         if (unreadDataSize > 0) {
             byte result = buffer[readPosition];
             unreadDataSize--;
-            incReadPosition();
+            moveReadPosition();
             return result;
         } else {
             throw new EmptyBufferException();
