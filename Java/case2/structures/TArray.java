@@ -3,6 +3,11 @@ package structures;
 import java.util.Comparator;
 
 public class TArray<T> {
+    private enum ActionType{
+        AT_ADD,
+        AT_ACCESS
+    }
+
     private Object[] array;
     private int used = 0;
 
@@ -25,7 +30,7 @@ public class TArray<T> {
     }
 
     public void add(T element, int index){
-        if (!checkIndex(index) || index > getSize()){
+        if (!checkIndex(index, ActionType.AT_ADD)){
             throw new IndexOutOfBoundsException("Invalid index");
         }
 
@@ -48,7 +53,7 @@ public class TArray<T> {
 
     @SuppressWarnings("unchecked")
     public T get(int index){
-        if (!checkIndex(index)){
+        if (!checkIndex(index, ActionType.AT_ACCESS)){
             throw new IndexOutOfBoundsException("Invalid index");
         }
 
@@ -65,7 +70,7 @@ public class TArray<T> {
     }
 
     public void removeAt(int index){
-        if (!checkIndex(index)){
+        if (!checkIndex(index, ActionType.AT_ACCESS)){
             throw new IndexOutOfBoundsException("Invalid index");
         }
         System.arraycopy(array, index + 1, array, index, getSize() - index);
@@ -73,8 +78,15 @@ public class TArray<T> {
 
     }
 
-    private boolean checkIndex(int index){
-        return index >= 0 && index < getSize();
+    private boolean checkIndex(int index, ActionType actionType){
+        boolean result = index >= 0;
+        if (actionType == ActionType.AT_ADD){
+            result = result && (index <= getSize());
+        } else {
+            result = result && (index < getSize());
+        }
+
+        return result;
     }
 
     public void copyTo(TArray<T> dest, int startIndex, int length){

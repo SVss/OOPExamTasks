@@ -1,8 +1,4 @@
-import com.sun.javafx.scene.control.TableColumnSortTypeWrapper;
-import org.omg.CORBA.INTERNAL;
 import structures.*;
-
-import java.util.Comparator;
 
 public class Main {
     private static void printList(TList<Integer> list) {
