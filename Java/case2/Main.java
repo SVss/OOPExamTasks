@@ -14,13 +14,14 @@ public class Main {
         for (int i = 1; i < 10; i++) {
             list.add(i);
         }
-        TList<Integer> newList = new TList<>();
-        newList.add(1);
-        newList.add(2);
 
-        newList.moveTo(list);
+        list.remove(0);
+        list.remove(0);
 
-        printList(newList);
+        printList(list);
+        list.add(10);
+        printList(list);
+        list.add(0, 0);
         printList(list);
 
     }

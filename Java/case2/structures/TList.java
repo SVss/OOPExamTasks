@@ -11,7 +11,9 @@ public class TList<T> {
         }
     }
 
-    private TListItem head;
+    private TListItem head = null;
+    private int lastVisitedIndex = 0;
+    private TListItem lastVisited = null;
 
     public TList() {
         head = null;
@@ -23,9 +25,20 @@ public class TList<T> {
         }
 
         TListItem currentElement = head;
-        for (int i = 0; i < index; i++) {
-            currentElement = currentElement.next;
+        int i = 0;
+
+        if ((index >= lastVisitedIndex) && (lastVisited != null)) {
+            currentElement = lastVisited;
+            i = lastVisitedIndex;
         }
+
+        while (i < index) {
+            currentElement = currentElement.next;
+            i++;
+        }
+
+        lastVisitedIndex = index;
+        lastVisited = currentElement;
 
         return currentElement;
     }
@@ -34,7 +47,7 @@ public class TList<T> {
         int size = 0;
         TListItem current = head;
 
-        while (current != null){
+        while (current != null) {
             current = current.next;
             size++;
         }
@@ -57,6 +70,10 @@ public class TList<T> {
             newItem.next = previousItem.next;
             previousItem.next = newItem;
         }
+
+        if (index <= lastVisitedIndex) {
+            clearCache();
+        }
     }
 
     public T get(int index) {
@@ -75,6 +92,15 @@ public class TList<T> {
             TListItem current = previous.next;
             previous.next = current.next;
         }
+
+        if (index <= lastVisitedIndex){
+            clearCache();
+        }
+    }
+
+    private void clearCache(){
+        lastVisitedIndex = 0;
+        lastVisited = null;
     }
 
     public void setElementAt(int index, T element) {
@@ -83,6 +109,7 @@ public class TList<T> {
 
     public void clear() {
         head = null;
+        clearCache();
     }
 
     public void moveTo(TList<T> outList) {
