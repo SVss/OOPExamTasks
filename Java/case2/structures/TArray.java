@@ -25,7 +25,7 @@ public class TArray<T> {
     }
 
     public void add(T element, int index){
-        if (!checkIndex(index) && index > getSize()){
+        if (!checkIndex(index) || index > getSize()){
             throw new IndexOutOfBoundsException("Invalid index");
         }
 
