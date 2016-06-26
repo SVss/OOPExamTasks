@@ -53,13 +53,12 @@ public class TArray<T extends Comparable> {
         array = newArray;
     }
 
-    @SuppressWarnings("unchecked")
     public T get(int index){
         if (!checkIndex(index, ActionType.AT_ACCESS)){
             throw new IndexOutOfBoundsException("Invalid index");
         }
 
-        return (T)array[index];
+        return array[index];
     }
 
     public void set(int index, T value){
