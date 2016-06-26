@@ -22,7 +22,7 @@ public class TArray<T> {
     }
 
     private int getReserved(){
-        return array.length;
+        return array != null ? array.length : 0;
     }
 
     public void add(T element){
@@ -47,7 +47,9 @@ public class TArray<T> {
     private void expand(){
         int size = getSize();
         Object[] newArray = new Object[(size == 0 ? 1 : size) * 2];
-        System.arraycopy(array, 0, newArray, 0, getSize());
+        if (array != null) {
+            System.arraycopy(array, 0, newArray, 0, getSize());
+        }
         array = newArray;
     }
 
@@ -60,20 +62,26 @@ public class TArray<T> {
         return (T)array[index];
     }
 
-    public boolean contains(T element){
+    public int indexOf(T element){
         for (int i = 0; i < getSize(); i++){
             if (array[i].equals(element)){
-                return true;
+                return i;
             }
         }
-        return false;
+        return -1;
+    }
+
+    public boolean contains(T element){
+        return indexOf(element) != -1;
     }
 
     public void removeAt(int index){
         if (!checkIndex(index, ActionType.AT_ACCESS)){
             throw new IndexOutOfBoundsException("Invalid index");
         }
-        System.arraycopy(array, index + 1, array, index, getSize() - index);
+        if (index < getSize() - 1) {
+            System.arraycopy(array, index + 1, array, index, getSize() - index);
+        }
         used--;
 
     }

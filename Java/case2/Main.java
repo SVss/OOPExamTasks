@@ -1,4 +1,6 @@
 import structures.*;
+import structures.Collection.TCollection;
+import structures.Collection.TCollectionItem;
 
 public class Main {
     private static void printList(TList<Integer> list) {
@@ -132,7 +134,23 @@ public class Main {
         System.out.println("");
     }
 
+    private static void testCollection(){
+        TCollection<Integer> collection = new TCollection<>();
+        TCollectionItem<Integer> item = new TCollectionItem<>(1, collection);
+        TCollectionItem<Integer> item1 = new TCollectionItem<>(2, collection);
+
+        for (int i = 0; i < collection.getSize(); i++){
+            System.out.print(collection.get(i).getValue() + ", ");
+        }
+
+        System.out.println("");
+
+        System.out.println(collection.indexOf(item1));
+        collection.remove(item1);
+        System.out.println(collection.indexOf(item1));
+    }
+
     public static void main(String[] args) {
-        testList();
+        testCollection();
     }
 }
