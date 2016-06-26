@@ -1,6 +1,8 @@
 import structures.*;
 import structures.Collection.TCollection;
 import structures.Collection.TCollectionItem;
+import structures.Dictionary.TDictionary;
+import structures.Dictionary.TPair;
 
 public class Main {
     private static void printList(TList<Integer> list) {
@@ -151,7 +153,29 @@ public class Main {
         }
     }
 
+    private static void printDictionary(TDictionary<String, Integer> dictionary){
+        for (TPair<String, Integer> pair: dictionary){
+            System.out.print(pair.getKey() + ":" + pair.getValue() + ", ");
+        }
+        System.out.println(dictionary.isSorted());
+        System.out.println("");
+    }
+
+    private static void testDictionary(){
+        TDictionary<String, Integer> dictionary = new TDictionary<>();
+        dictionary.add("b", 1);
+        dictionary.add("a", 100);
+        dictionary.add("d", 1000);
+        printDictionary(dictionary);
+        dictionary.sort();
+        printDictionary(dictionary);
+        dictionary.set("a", 2);
+        printDictionary(dictionary);
+        dictionary.remove("a");
+        printDictionary(dictionary);
+    }
+
     public static void main(String[] args) {
-        testCollection();
+        testDictionary();
     }
 }

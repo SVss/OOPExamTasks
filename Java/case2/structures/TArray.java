@@ -1,20 +1,19 @@
 package structures;
 
-import java.util.Comparator;
-
 public class TArray<T extends Comparable> {
     private enum ActionType{
         AT_ADD,
         AT_ACCESS
     }
 
-    private Object[] array;
+    private T[] array;
     private int used = 0;
 
     public TArray(){}
 
+    @SuppressWarnings("unchecked")
     public TArray(int size){
-        array = new Object[size];
+        array = (T[])new Object[size];
     }
 
     public int getSize(){
@@ -44,9 +43,10 @@ public class TArray<T extends Comparable> {
         used++;
     }
 
+    @SuppressWarnings("unchecked")
     private void expand(){
         int size = getSize();
-        Object[] newArray = new Object[(size == 0 ? 1 : size) * 2];
+        T[] newArray = (T[])(new Object[(size == 0 ? 1 : size) * 2]);
         if (array != null) {
             System.arraycopy(array, 0, newArray, 0, getSize());
         }
@@ -60,6 +60,14 @@ public class TArray<T extends Comparable> {
         }
 
         return (T)array[index];
+    }
+
+    public void set(int index, T value){
+        if (!checkIndex(index, ActionType.AT_ACCESS)){
+            throw new IndexOutOfBoundsException("Invalid index");
+        }
+
+        array[index] = value;
     }
 
     public int indexOf(T element){
@@ -118,14 +126,18 @@ public class TArray<T extends Comparable> {
         for (int i = 0; i < getSize() - 1; i++){
             leadIndex = i;
             for (int j = i + 1; j < getSize(); j++){
-                if (get(leadIndex).compareTo(get(j)) > 0){
+                if (array[leadIndex].compareTo(array[j]) > 0){
                     leadIndex = j;
                 }
             }
-            temp = (T)array[i];
+            temp = array[i];
             array[i] = array[leadIndex];
             array[leadIndex] = temp;
         }
+    }
+
+    public void clear(){
+        used = 0;
     }
 
 
