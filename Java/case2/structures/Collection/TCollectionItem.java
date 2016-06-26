@@ -1,7 +1,7 @@
 package structures.Collection;
 
 
-public class TCollectionItem<T extends Comparable<T>> implements Comparable<TCollectionItem<T>> {
+public class TCollectionItem<T extends Comparable<? super T>> implements Comparable<TCollectionItem<T>> {
     private T value;
     private TCollection<T> owner;
 

@@ -1,6 +1,6 @@
 package structures;
 
-public class TArray<T extends Comparable> {
+public class TArray<T extends Comparable<? super T>> {
     private enum ActionType{
         AT_ADD,
         AT_ACCESS
@@ -46,7 +46,7 @@ public class TArray<T extends Comparable> {
     @SuppressWarnings("unchecked")
     private void expand(){
         int size = getSize();
-        T[] newArray = (T[])(new Object[(size == 0 ? 1 : size) * 2]);
+        T[] newArray = (T[])(new Comparable[(size == 0 ? 1 : size) * 2]);
         if (array != null) {
             System.arraycopy(array, 0, newArray, 0, getSize());
         }
