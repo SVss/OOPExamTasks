@@ -1,13 +1,18 @@
 package structures.Collection;
 
 
-public class TCollectionItem<T> {
+public class TCollectionItem<T extends Comparable<T>> implements Comparable<TCollectionItem<T>> {
     private T value;
     private TCollection<T> owner;
 
     public TCollectionItem(T value, TCollection<T> owner, int index){
         this.value = value;
         owner.add(this, index);
+    }
+
+    @Override
+    public int compareTo(TCollectionItem<T> o) {
+        return getValue().compareTo(o.getValue());
     }
 
     public TCollectionItem(T value, TCollection<T> owner){

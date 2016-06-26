@@ -2,7 +2,7 @@ package structures.Collection;
 
 import structures.TArray;
 
-public class TCollection<T> extends TArray<TCollectionItem<T>> {
+public class TCollection<T extends Comparable<T>> extends TArray<TCollectionItem<T>> {
     @Override
     public void add(TCollectionItem<T> element, int index) {
         super.add(element, index);

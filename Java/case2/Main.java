@@ -96,7 +96,7 @@ public class Main {
         b.add(10);
         b.add(-20);
         a.copyTo(b, 1);
-        b.sort((o1, o2) -> o1 - o2);
+        b.sort();
         for (int i = 0; i < b.getSize(); i++){
             System.out.println(b.get(i));
         }
@@ -137,17 +137,18 @@ public class Main {
     private static void testCollection(){
         TCollection<Integer> collection = new TCollection<>();
         TCollectionItem<Integer> item = new TCollectionItem<>(1, collection);
-        TCollectionItem<Integer> item1 = new TCollectionItem<>(2, collection);
+        TCollectionItem<Integer> item1 = new TCollectionItem<>(-2, collection);
 
         for (int i = 0; i < collection.getSize(); i++){
             System.out.print(collection.get(i).getValue() + ", ");
         }
 
         System.out.println("");
+        collection.sort();
 
-        System.out.println(collection.indexOf(item1));
-        collection.remove(item1);
-        System.out.println(collection.indexOf(item1));
+        for (int i = 0; i < collection.getSize(); i++){
+            System.out.print(collection.get(i).getValue() + ", ");
+        }
     }
 
     public static void main(String[] args) {

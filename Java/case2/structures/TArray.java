@@ -2,7 +2,7 @@ package structures;
 
 import java.util.Comparator;
 
-public class TArray<T> {
+public class TArray<T extends Comparable> {
     private enum ActionType{
         AT_ADD,
         AT_ACCESS
@@ -112,13 +112,13 @@ public class TArray<T> {
     }
 
     @SuppressWarnings("unchecked")
-    public void sort(Comparator<T> comparator){
+    public void sort(){
         int leadIndex;
         T temp;
         for (int i = 0; i < getSize() - 1; i++){
             leadIndex = i;
             for (int j = i + 1; j < getSize(); j++){
-                if (comparator.compare(get(leadIndex), get(j)) > 0){
+                if (get(leadIndex).compareTo(get(j)) > 0){
                     leadIndex = j;
                 }
             }
