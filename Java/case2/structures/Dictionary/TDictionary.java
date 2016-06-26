@@ -85,7 +85,7 @@ public class TDictionary<K extends Comparable<K>, V> implements Iterable<TPair<K
         if (contains(key)){
             throw new IllegalArgumentException("Key already exists");
         }
-        if (getSize() == used) {
+        if (getSize() == getReserved()) {
             expand();
         }
         values[used] = new TPair<>(key, value);
